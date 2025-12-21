@@ -30,7 +30,7 @@ class Passanger extends Thread
         this.r = r;
 
     }
-    
+        
     public void run()
     {
         

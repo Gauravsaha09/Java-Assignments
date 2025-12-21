@@ -11,7 +11,6 @@ class ATM{
                 System.out.println("Amount not Avalible for " + name + " Tried "+amount + " balance "+ balance);
             }
         }
-    
 }
 
 class  customers extends Thread{

@@ -1,59 +1,64 @@
-// 1. Write a multithreaded program for demonstrating following thread 
+// Define a class Bank with data members Customer Name, Account Number, and Balance.
+// Use constructors, deposit(), withdraw() methods, and print top two customers based on highest balance.
 
-// a. Display all odd number between 1001 to 2001. 
-// b. Display the nunmber of vowels present in the String "MATHEMATICS" 
-// c. Display all Prime Numbers between 1 to 50. 
+class Bank{
+  String cust_num;
+  int ac_no;
+  double balance;
 
-class OddThread  extends Thread{
-    public void run(){
-       for (int i = 1001; i <= 2001; i+=2) {
-           System.out.println("Odd Number Between : " + i);
-       }
-    }
+Bank(String cust_num, int ac_no, double balance){
+    this.cust_num = cust_num;
+    this.ac_no = ac_no;
+    this.balance = balance;
+  }
+
+void deposit(double ammount){
+     balance += ammount;
 }
 
-class VowelThread  extends Thread{
-    public void run(){
-        String a = "MATHEMATICS";
-        int count =0;
-        for(int i=0; i<a.length(); i++){
-        char ch = a.charAt(i);
-        if (ch=='A' || ch=='E' || ch=='I' || ch=='O' || ch=='U')
-                count ++;
-        }
-        System.out.println("Vowels in Mathematics = "+ count);
+void withdraw(double amount){
+    if (amount <= balance) {
+        balance -= amount;
+    } else {
+      System.out.println("Insufficient Balance");
     }
 }
-
-class PrimeThread extends Thread{
-    public void run(){
-        System.out.println("Prime numbers between 1 to 50: ");
-        for (int n = 2; n < 50; n++) {
-            boolean Prime = true;
-
-            for (int i = 2; i <= n/2; i++) {
-                if(n % i == 0){
-                    Prime = false;
-                    break;
-                }
-                
-            }
-            if(Prime){
-                System.out.println(n);
-            }
-            
-        }
+void display(){
+      System.out.println("Name: "+ cust_num +
+                         ", Account No: " + ac_no +
+                          ", Balance: " + balance);
     }
+   
 }
 
-public class Q1{
+public class Q1 {
     public static void main(String[] args) {
-        OddThread o1 = new OddThread();
-        VowelThread v1 = new VowelThread();
-        PrimeThread  p1 = new PrimeThread ();
 
-        o1.start();
-        v1.start();
-        p1.start();
+        Bank b1 = new Bank("Gaurav", 1009, 5000);
+        Bank b2 = new Bank("Rahul", 1008, 6000);
+        Bank b3 = new Bank("Aman", 1007, 8000);
+
+        Bank first, second;
+
+        // Compare b1 and b2
+        if (b1.balance > b2.balance) {
+            first = b1;
+            second = b2;
+        } else {
+            first = b2;
+            second = b1;
+        }
+
+        // Compare with b3
+        if (b3.balance > first.balance) {
+            second = first;
+            first = b3;
+        } else if (b3.balance > second.balance) {
+            second = b3;
+        }
+
+        System.out.println("Top Two Customers with Highest Balance:");
+        first.display();
+        second.display();
     }
 }
